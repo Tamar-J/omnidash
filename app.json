@@ -1,0 +1,44 @@
+{
+  "expo": {
+    "name": "OmniDash",
+    "slug": "omni-dash",
+    "version": "0.0.1",
+    "orientation": "default",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#13131A"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#13131A"
+      }
+    },
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "node_modules/@expo-google-fonts/inter/Roboto_300Light.ttf",
+            "node_modules/@expo-google-fonts/inter/Roboto_400Regular.ttf",
+            "node_modules/@expo-google-fonts/inter/Roboto_500Medium.ttf",
+            "node_modules/@expo-google-fonts/inter/Roboto_700Bold.ttf"
+          ]
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Permita que $(PRODUCT_NAME) use sua localização."
+        }
+      ]
+    ]
+  }
+}
