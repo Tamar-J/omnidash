@@ -5,14 +5,18 @@ import { theme } from '@/themes'
 
 import { useLoadFonts } from '@/hooks/useLoadFonts'
 
+import { Home } from '@/screens/Home'
+import { LoadingScreen } from '@/components'
+
 export default function App() {
   const [areFontsLoaded] = useLoadFonts()
-
-  if (!areFontsLoaded) return null
 
   return (
     <ThemeProvider theme={theme}>
       <StatusBar style="light" translucent />
+      {areFontsLoaded ?
+        <Home />
+      : <LoadingScreen />}
     </ThemeProvider>
   )
 }
