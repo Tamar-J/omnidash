@@ -6,6 +6,7 @@ export function SectionWeather() {
       <SectionHeader title={'Clima'} status={''} />
       <Box borderRadius="medium" backgroundColor="sectionListBackground" gap="s10">
         {/* ForecastDayCard */}
+        {/* ForecastHourCard */}
       </Box>
     </SectionContainer>
   )
