@@ -1,3 +1,5 @@
 export { Box, BoxCenter, BoxRow, BoxSafe, TouchableBox, BoxProps, BoxGradient, TouchableBoxProps } from './Box/boxStyles'
 export { Loading, LoadingScreen } from './Loading/Loading'
 export { TextDisplay, TextTitle, TextBody, TextLabel } from './Text/textStyles'
+export { Icon, TouchableIcon, IconProps, IconMapKeyType, IconSVG, IconSVGProps, IconSVGMapKeyType } from './Icon'
+export { SectionContainer, SectionHeader } from './Section'
