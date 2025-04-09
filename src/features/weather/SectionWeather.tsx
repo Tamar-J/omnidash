@@ -7,6 +7,7 @@ export function SectionWeather() {
       <Box borderRadius="medium" backgroundColor="sectionListBackground" gap="s10">
         {/* ForecastDayCard */}
         {/* ForecastHourCard */}
+        {/* CurrentWeatherCard */}
       </Box>
     </SectionContainer>
   )
