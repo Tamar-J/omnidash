@@ -1,22 +1,76 @@
-import { Box, SectionContainer, SectionHeader } from '@/components'
+import { Box, ModalToggleResources, SectionContainer, TouchableIcon, SectionHeader } from '@/components'
 
-import { useSectionWeather } from './useSectionWeather'
 import { CurrentWeatherCard } from './cards/CurrentWeatherCard'
-import { ForecastHourCard } from './cards/ForecastHourCard'
 import { ForecastDayCard } from './cards/ForecastDayCard'
+import { ForecastHourCard } from './cards/ForecastHourCard'
+
+import { ModalLocation } from './modals/ModalLocation'
+
+import { ActiveModal, useSectionWeather } from './useSectionWeather'
 
 export function SectionWeather() {
-  const { isCurrentWeatherVisible, isDailyWeatherVisible, isHourlyWeatherVisible, isLoading, weatherData } = useSectionWeather()
+  const {
+    openModal,
+    closeModal,
+    handlePressUserLocation,
+    isCurrentWeatherVisible,
+    isDailyWeatherVisible,
+    isError,
+    isFetching,
+    isHourlyWeatherVisible,
+    isLoading,
+    isLocationModalVisible,
+    isToggleResourcesModalVisible,
+    resourcesData,
+    weatherData,
+  } = useSectionWeather()
 
   return (
     <SectionContainer>
-      <SectionHeader title={'Clima'} status={''} />
+      <SectionHeader
+        title={'Clima'}
+        status={
+          isError ? 'offline'
+          : isLoading || isFetching ?
+            'carregando...'
+          : ''
+        }
+        rightIcon={
+          <>
+            <TouchableIcon
+              iconName="mapPin"
+              iconWeight="bold"
+              iconColor={!!weatherData || isLoading ? 'primary' : 'highlightPrimary'}
+              handlePressIcon={() => openModal(ActiveModal.LOCATION)}
+            />
+            <TouchableIcon
+              iconName="dotsThreeOutlineVertical"
+              iconWeight="fill"
+              handlePressIcon={() => openModal(ActiveModal.TOGGLE_RESOURCES)}
+            />
+          </>
+        }
+      />
       {!isLoading && weatherData && (
         <Box borderRadius="medium" backgroundColor="sectionListBackground" gap="s10">
           {isCurrentWeatherVisible && <CurrentWeatherCard data={weatherData.currentData} />}
           {isHourlyWeatherVisible && <ForecastHourCard data={weatherData.hourlyData} />}
           {isDailyWeatherVisible && <ForecastDayCard data={weatherData.dailyData} />}
         </Box>
+      )}
+      {isToggleResourcesModalVisible && (
+        <ModalToggleResources
+          isModalVisible={isToggleResourcesModalVisible}
+          closeModal={closeModal}
+          resourcesData={resourcesData}
+        />
+      )}
+      {isLocationModalVisible && (
+        <ModalLocation
+          isModalVisible={isLocationModalVisible}
+          closeModal={closeModal}
+          handlePressUserLocation={handlePressUserLocation}
+        />
       )}
     </SectionContainer>
   )
