@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { useMMKVBoolean } from 'react-native-mmkv'
+
+import { CURRENT_WEATHER_CARD_KEY, DAILY_WEATHER_CARD_KEY, HOURLY_WEATHER_CARD_KEY } from '@/libs/storage/storageKeys'
 
 import { useUserLocation } from '@/hooks/useUserLocation'
 import { useWeather } from '@/hooks/useWeather'
 
 import { UserLocationDataProps } from '@/services/geocodingServices'
-
-import { storage } from '@/services/storage/storage'
-import { CURRENT_WEATHER_CARD_KEY, DAILY_WEATHER_CARD_KEY, HOURLY_WEATHER_CARD_KEY } from '@/services/storage/storageKeys'
 
 export enum ActiveModal {
   NONE = 0,
@@ -18,16 +18,16 @@ export function useSectionWeather() {
   const [latitude, setLatitude] = useState<number | undefined>()
   const [longitude, setLongitude] = useState<number | undefined>()
 
-  const [isCurrentWeatherVisible, setIsCurrentWeatherVisible] = useState(false)
-  const [isDailyWeatherVisible, setIsDailyWeatherVisible] = useState(false)
-  const [isHourlyWeatherVisible, setIsHourlyWeatherVisible] = useState(false)
+  const [isCurrentWeatherVisible = true, setIsCurrentWeatherVisible] = useMMKVBoolean(CURRENT_WEATHER_CARD_KEY)
+  const [isDailyWeatherVisible = true, setIsDailyWeatherVisible] = useMMKVBoolean(DAILY_WEATHER_CARD_KEY)
+  const [isHourlyWeatherVisible = true, setIsHourlyWeatherVisible] = useMMKVBoolean(HOURLY_WEATHER_CARD_KEY)
 
   const [activeModal, setActiveModal] = useState(ActiveModal.NONE)
 
-  const userLocationDataRef = useRef<UserLocationDataProps | undefined | null>(null)
-
   const { userLocationData, refetchUserLocation } = useUserLocation(latitude, longitude)
   const { weatherData, isLoading, isFetching, refetchWeather, isError } = useWeather(userLocationData)
+
+  const userLocationDataRef = useRef<UserLocationDataProps | undefined>(userLocationData)
 
   const isLocationModalVisible = activeModal === ActiveModal.LOCATION
   const isToggleResourcesModalVisible = activeModal === ActiveModal.TOGGLE_RESOURCES
@@ -36,22 +36,13 @@ export function useSectionWeather() {
   const closeModal = () => setActiveModal(ActiveModal.NONE)
 
   const toggleCurrentWeather = () => {
-    setIsCurrentWeatherVisible((previewState) => {
-      storage.setItem(CURRENT_WEATHER_CARD_KEY, !previewState)
-      return !previewState
-    })
+    setIsCurrentWeatherVisible(!isCurrentWeatherVisible)
   }
   const toggleDailyWeather = () => {
-    setIsDailyWeatherVisible((previewState) => {
-      storage.setItem(DAILY_WEATHER_CARD_KEY, !previewState)
-      return !previewState
-    })
+    setIsDailyWeatherVisible(!isDailyWeatherVisible)
   }
   const toggleHourlyWeather = () => {
-    setIsHourlyWeatherVisible((previewState) => {
-      storage.setItem(HOURLY_WEATHER_CARD_KEY, !previewState)
-      return !previewState
-    })
+    setIsHourlyWeatherVisible(!isHourlyWeatherVisible)
   }
 
   let resourcesData = [
@@ -72,22 +63,6 @@ export function useSectionWeather() {
   }, [])
 
   useEffect(() => {
-    const loadCards = async () => {
-      const [currentCard, dailyCard, hourlyCard] = await Promise.all([
-        storage.getItem(CURRENT_WEATHER_CARD_KEY),
-        storage.getItem(DAILY_WEATHER_CARD_KEY),
-        storage.getItem(HOURLY_WEATHER_CARD_KEY),
-      ])
-
-      setIsCurrentWeatherVisible(currentCard ?? true)
-      setIsDailyWeatherVisible(dailyCard ?? true)
-      setIsHourlyWeatherVisible(hourlyCard ?? true)
-    }
-
-    loadCards()
-  }, [])
-
-  useEffect(() => {
     if (latitude && longitude) {
       refetchUserLocation()
     }
@@ -95,12 +70,6 @@ export function useSectionWeather() {
 
   useEffect(() => {
     if (userLocationData) {
-      if (userLocationDataRef.current === null) {
-        userLocationDataRef.current = userLocationData
-        refetchUserLocation()
-        return
-      }
-
       const hasUserLocationDataChanged = userLocationDataRef.current !== userLocationData
 
       if (hasUserLocationDataChanged) {
@@ -110,7 +79,7 @@ export function useSectionWeather() {
         resetUserLocationState()
       }
     }
-  }, [userLocationData, resetUserLocationState, refetchWeather, refetchUserLocation])
+  }, [userLocationData, resetUserLocationState, refetchWeather])
 
   return {
     isLocationModalVisible,

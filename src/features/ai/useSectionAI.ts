@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from 'react'
+import { useMMKVBoolean } from 'react-native-mmkv'
+
+import { dayjs } from '@/libs/dayjs'
+import { AI_WEATHER_INSIGHT_CARD_KEY } from '@/libs/storage/storageKeys'
 
 import { useWeather } from '@/hooks/useWeather'
 import { useAIWeather } from '@/hooks/useAIWeather'
-
-import { dayjs } from '@/libs/dayjs'
-import { storage } from '@/services/storage/storage'
-import { AI_WEATHER_INSIGHT_CARD_KEY } from '@/services/storage/storageKeys'
 
 export enum ActiveModal {
   NONE = 0,
@@ -19,7 +19,7 @@ export function useSectionAI() {
   const isModalInfoVisible = activeModal === ActiveModal.INFO
   const isModalToggleResourcesVisible = activeModal === ActiveModal.TOGGLE_SOURCES
 
-  const [isAiWeatherInsightCardVisible, setIsAiWeatherInsightCardVisible] = useState(false)
+  const [isAiWeatherInsightCardVisible = true, setIsAiWeatherInsightCardVisible] = useMMKVBoolean(AI_WEATHER_INSIGHT_CARD_KEY)
 
   const { weatherData } = useWeather()
   const { data: aiData, isLoading, fetchAIData, isFetching, isError } = useAIWeather(weatherData)
@@ -43,22 +43,10 @@ export function useSectionAI() {
   const closeModal = () => setActiveModal(ActiveModal.NONE)
 
   const toggleAiInsights = () => {
-    setIsAiWeatherInsightCardVisible((previewState) => {
-      storage.setItem(AI_WEATHER_INSIGHT_CARD_KEY, !previewState)
-      return !previewState
-    })
+    setIsAiWeatherInsightCardVisible(!isAiWeatherInsightCardVisible)
   }
 
   const resourcesData = [{ title: 'Insights de Clima', isActive: isAiWeatherInsightCardVisible, toggleSwitch: toggleAiInsights }]
-
-  useEffect(() => {
-    const loadCards = async () => {
-      const aiCard = await storage.getItem(AI_WEATHER_INSIGHT_CARD_KEY)
-      setIsAiWeatherInsightCardVisible(aiCard ?? true)
-    }
-
-    loadCards()
-  }, [])
 
   useEffect(() => {
     const isReadyToFetch = shouldFetchAI()

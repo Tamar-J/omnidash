@@ -1,5 +1,4 @@
 import * as Network from 'expo-network'
-
 import { onlineManager } from '@tanstack/react-query'
 
 export const setupNetworkListener = () => {
