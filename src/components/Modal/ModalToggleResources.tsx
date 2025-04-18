@@ -64,7 +64,7 @@ const SwitchItem = ({ title, isActive = false, toggleSwitch }: SwitchItemProps) 
       borderWidth={0.5}
       borderRadius="full"
       paddingHorizontal="s24"
-      paddingVertical="s8"
+      paddingVertical="s16"
     >
       <TextBody textPreset="mediumMedium" color={textColor}>
         {title}

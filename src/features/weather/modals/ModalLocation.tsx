@@ -91,7 +91,7 @@ export function ModalLocation({ closeModal, isModalVisible, handlePressUserLocat
               borderWidth={0.5}
               borderRadius="full"
               paddingHorizontal="s16"
-              paddingVertical="s6"
+              paddingVertical="s16"
             >
               <Icon iconName="magnifyingGlass" />
               <TextInput value={userInput} onChangeText={handleUserInput} placeholder="Digite o Endereço" />
