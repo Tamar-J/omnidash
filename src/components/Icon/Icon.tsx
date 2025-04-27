@@ -27,21 +27,21 @@ type TouchableIconProps = IconProps &
   BoxProps &
   TouchableOpacityProps & {
     handlePressIcon: () => void
-    boxDimension?: IconSizesKeyType
+    boxDimension?: number
   }
 
 export function TouchableIcon({
   iconName,
   iconWeight,
   iconColor,
-  iconSize,
+  iconSize = 'small',
   boxDimension,
   handlePressIcon,
   ...rest
 }: TouchableIconProps) {
   const { sizes } = useTheme()
 
-  const boxSize = boxDimension ? sizes.icons[boxDimension] : 24
+  const boxSize = boxDimension || sizes.icons[iconSize] + 6
 
   return (
     <TouchableBox
@@ -62,12 +62,12 @@ export type IconSVGProps = {
   iconSize?: WeatherIconSizesKeyType
 }
 
-export function IconSVG({ iconName, iconSize }: IconSVGProps) {
+export function IconSVG({ iconName, iconSize = 'medium' }: IconSVGProps) {
   const { sizes } = useTheme()
 
-  const size = iconSize ? sizes.weatherIcons[iconSize] : 36
+  const size = sizes.weatherIcons[iconSize]
 
   const IconSVGComponent = iconSVGMap[iconName]
 
-  return <IconSVGComponent width={size} height={size} />
+  return <IconSVGComponent width={size} height={size} testID="icon-svg" />
 }

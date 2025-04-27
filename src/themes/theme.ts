@@ -58,7 +58,7 @@ export const theme = {
     },
     icons: {
       small: sizes.s18,
-      large: sizes.s34,
+      large: sizes.s30,
     },
     weatherIcons: {
       medium: sizes.s36,
