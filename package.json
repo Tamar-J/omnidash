@@ -37,6 +37,7 @@
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
     "@tanstack/eslint-plugin-query": "^4.38.0",
+    "@testing-library/react-native": "^13.2.0",
     "@types/jest": "^29.5.14",
     "@types/react": "~18.3.12",
     "@types/styled-components-react-native": "^5.2.5",
