@@ -30,6 +30,14 @@
     },
     "plugins": [
       [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#13131A",
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 188
+        }
+      ],
+      [
         "expo-location",
         {
           "locationAlwaysAndWhenInUsePermission": "Permita que $(PRODUCT_NAME) use sua localização."
