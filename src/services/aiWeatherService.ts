@@ -6,8 +6,8 @@ const aiRole = `Você é um assistente de bem-estar climático que entende todos
 
 Considerações na análise: como dados climáticos tem validade, considere o lastFetchedAt como o horário em que os dados foram obtidos. hourlyData tem apenas 24h de dados a partir do horário atual e dailyData tem um resumo para 7 dias.`
 
-function removeThinkingTags(text: string) {
-  return text.replace(/<think>.*?<\/think>/g, '').trim()
+function removeThinkTag(text: string) {
+  return text.replace(/<think>[\s\S]*?<\/think>/, '').trim()
 }
 
 const userRole = (weatherCachedData: string) => {
@@ -28,7 +28,7 @@ export const getAiWeatherResponse = async (weatherCachedData: string, signal: Ab
   try {
     const aiResponse = await fetchAiChat(aiData, signal)
     const aiAnswer = aiResponse.choices[0].message.content
-    const cleanedAnswer = removeThinkingTags(aiAnswer)
+    const cleanedAnswer = removeThinkTag(aiAnswer)
     const lastFetchedAt = dayjs().utc(true).toISOString()
 
     return {
