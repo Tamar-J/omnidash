@@ -1,7 +1,7 @@
 import { ActivityIndicator } from 'react-native'
-import { useTheme } from 'styled-components/native'
+import { useTheme } from '@shopify/restyle'
 
-import { AllSizesKeyType, TextColorsKeyType } from '@/themes'
+import { AllSizesKeyType, TextColorsKeyType, ThemeType } from '@/themes'
 
 import { BoxProps, BoxCenter } from '../Box/boxStyles'
 
@@ -13,9 +13,9 @@ type LoadingProps = {
 type LoadingScreenProps = BoxProps & LoadingProps
 
 export function Loading({ color = 'highlightPrimary', size = 's32' }: LoadingProps) {
-  const { colors, sizes } = useTheme()
+  const { spacing, textColors } = useTheme<ThemeType>()
 
-  return <ActivityIndicator color={colors.texts[color]} size={sizes.allSizes[size]} />
+  return <ActivityIndicator color={textColors[color]} size={spacing[size]} />
 }
 
 export function LoadingScreen({ color, size, backgroundColor = 'background', ...rest }: LoadingScreenProps) {

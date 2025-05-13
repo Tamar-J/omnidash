@@ -40,7 +40,7 @@ export function SectionWeather() {
             <TouchableIcon
               iconName="mapPin"
               iconWeight="bold"
-              iconColor={!!weatherData || isLoading ? 'primary' : 'highlightPrimary'}
+              iconColor={Boolean(weatherData) || isLoading ? 'primary' : 'highlightPrimary'}
               handlePressIcon={() => openModal(ActiveModal.LOCATION)}
             />
             <TouchableIcon
@@ -65,7 +65,7 @@ export function SectionWeather() {
           resourcesData={resourcesData}
         />
       )}
-      {isLocationModalVisible && (
+      {(isLocationModalVisible || !weatherData) && (
         <ModalLocation
           isModalVisible={isLocationModalVisible}
           closeModal={closeModal}

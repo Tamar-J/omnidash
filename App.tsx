@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 import { StatusBar } from 'expo-status-bar'
 
-import { ThemeProvider } from 'styled-components/native'
-import { theme } from '@/themes/theme'
+import { ThemeProvider } from '@shopify/restyle'
+import { theme } from '@/themes'
 
 import { setupNetworkListener } from '@/libs/reactQuery/networkListener'
 import { useLoadFonts } from '@/hooks/useLoadFonts'

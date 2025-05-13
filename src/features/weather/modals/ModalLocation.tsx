@@ -82,12 +82,12 @@ export function ModalLocation({ closeModal, isModalVisible, handlePressUserLocat
             </BoxRow>
           </TouchableBox>
 
-          <Box gap={'s6'} flex={1}>
+          <Box gap="s6" flex={1}>
             <BoxRow
               backgroundColor="textInputBackground"
               width={'100%'}
               alignItems="center"
-              gap={'s10'}
+              gap="s10"
               borderWidth={0.5}
               borderRadius="full"
               paddingHorizontal="s16"
@@ -150,7 +150,7 @@ const CityNameItem = ({ handlePressUserLocation, data }: CityNameItemProps) => {
             *
           </TextBody>
           <Box flex={1}>
-            <TextTitle textPreset="smallMedium" color="primary">
+            <TextTitle textPreset="smallMedium" color="primary" textAlign="left">
               {cityName}
             </TextTitle>
             <TextBody textPreset="smallRegular" color="primaryAlternate">

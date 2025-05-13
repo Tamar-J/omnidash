@@ -1,5 +1,4 @@
-import React from 'react'
-import { ThemeProvider } from 'styled-components/native'
+import { ThemeProvider } from '@shopify/restyle'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { render, renderHook, RenderHookOptions, RenderOptions } from '@testing-library/react-native'
 

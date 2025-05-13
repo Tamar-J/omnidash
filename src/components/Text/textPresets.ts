@@ -4,14 +4,14 @@ export const textPresets = {
   display: {
     smallMedium: {
       fontFamily: theme.fontFamilies.medium,
-      fontSize: theme.sizes.fonts.displaySmall,
+      fontSize: theme.fontSizes.displaySmall,
       textAlign: 'auto',
       lineHeight: 40,
       letterSpacing: 0,
     },
     smallLight: {
       fontFamily: theme.fontFamilies.light,
-      fontSize: theme.sizes.fonts.displaySmall,
+      fontSize: theme.fontSizes.displaySmall,
       textAlign: 'auto',
       lineHeight: 40,
       letterSpacing: 0,
@@ -20,14 +20,14 @@ export const textPresets = {
   title: {
     mediumBold: {
       fontFamily: theme.fontFamilies.bold,
-      fontSize: theme.sizes.fonts.titleMedium,
+      fontSize: theme.fontSizes.titleMedium,
       textAlign: 'center',
       lineHeight: 24,
       letterSpacing: 0.15,
     },
     smallMedium: {
       fontFamily: theme.fontFamilies.medium,
-      fontSize: theme.sizes.fonts.titleSmall,
+      fontSize: theme.fontSizes.titleSmall,
       textAlign: 'center',
       lineHeight: 20,
       letterSpacing: 0.1,
@@ -36,27 +36,27 @@ export const textPresets = {
   body: {
     largeRegular: {
       fontFamily: theme.fontFamilies.regular,
-      fontSize: theme.sizes.fonts.bodyLarge,
+      fontSize: theme.fontSizes.bodyLarge,
       textAlign: 'auto',
       lineHeight: 20,
       letterSpacing: 0.5,
     },
     mediumRegular: {
       fontFamily: theme.fontFamilies.regular,
-      fontSize: theme.sizes.fonts.bodyMedium,
+      fontSize: theme.fontSizes.bodyMedium,
       textAlign: 'auto',
       lineHeight: 20,
       letterSpacing: 0.25,
     },
     smallRegular: {
       fontFamily: theme.fontFamilies.regular,
-      fontSize: theme.sizes.fonts.bodySmall,
+      fontSize: theme.fontSizes.bodySmall,
       lineHeight: 16,
       letterSpacing: 0.4,
     },
     mediumMedium: {
       fontFamily: theme.fontFamilies.medium,
-      fontSize: theme.sizes.fonts.bodyMedium,
+      fontSize: theme.fontSizes.bodyMedium,
       textAlign: 'auto',
       lineHeight: 20,
       letterSpacing: 0.25,
@@ -65,7 +65,7 @@ export const textPresets = {
   label: {
     smallMedium: {
       fontFamily: theme.fontFamilies.medium,
-      fontSize: theme.sizes.fonts.labelSmall,
+      fontSize: theme.fontSizes.labelSmall,
       textAlign: 'auto',
       lineHeight: 16,
       letterSpacing: 0,

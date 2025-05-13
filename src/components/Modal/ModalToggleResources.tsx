@@ -1,11 +1,13 @@
 import { ScrollView, Switch } from 'react-native'
-import { useTheme } from 'styled-components/native'
+import { useTheme } from '@shopify/restyle'
 
 import { Box, BoxRow } from '../Box/boxStyles'
 
 import { TextBody, TextTitle } from '../Text/textStyles'
 
 import { ModalContainer } from './ModalContainer'
+
+import { ThemeType } from '@/themes'
 
 type Props = {
   isModalVisible: boolean
@@ -21,7 +23,8 @@ export function ModalToggleResources({ isModalVisible, closeModal, resourcesData
         borderBottomWidth={0}
         padding="s24"
         gap="s24"
-        borderTopRadius="large"
+        borderTopLeftRadius="large"
+        borderTopRightRadius="large"
         backgroundColor="sectionListBackground"
         maxWidth={450}
         maxHeight={'100%'}
@@ -49,12 +52,10 @@ type SwitchItemProps = {
 }
 
 const SwitchItem = ({ title, isActive = false, toggleSwitch }: SwitchItemProps) => {
-  const {
-    colors: { backgrounds },
-  } = useTheme()
+  const { colors } = useTheme<ThemeType>()
 
   const textColor = isActive ? 'highlightPrimary' : 'primaryAlternate'
-  const trackColors = { true: backgrounds.action, false: backgrounds.inactive }
+  const trackColors = { true: colors.action, false: colors.inactive }
 
   return (
     <BoxRow

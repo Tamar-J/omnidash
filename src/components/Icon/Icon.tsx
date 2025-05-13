@@ -1,8 +1,8 @@
 import { TouchableOpacityProps } from 'react-native'
 import { IconWeight } from 'phosphor-react-native'
-import { useTheme } from 'styled-components/native'
+import { useTheme } from '@shopify/restyle'
 
-import { IconSizesKeyType, TextColorsKeyType, WeatherIconSizesKeyType } from '@/themes'
+import { IconSizesKeyType, TextColorsKeyType, ThemeType, WeatherIconSizesKeyType } from '@/themes'
 
 import { IconMap, IconMapKeyType, iconSVGMap, IconSVGMapKeyType } from './iconPresets'
 
@@ -16,11 +16,11 @@ export type IconProps = {
 }
 
 export function Icon({ iconName, iconWeight = 'regular', iconSize = 'small', iconColor = 'primary' }: IconProps) {
-  const { colors, sizes } = useTheme()
+  const { textColors, iconsSize } = useTheme<ThemeType>()
 
   const IconComponent = IconMap[iconName]
 
-  return <IconComponent size={sizes.icons[iconSize]} weight={iconWeight} color={colors.texts[iconColor]} />
+  return <IconComponent size={iconsSize[iconSize]} weight={iconWeight} color={textColors[iconColor]} />
 }
 
 type TouchableIconProps = IconProps &
@@ -39,9 +39,9 @@ export function TouchableIcon({
   handlePressIcon,
   ...rest
 }: TouchableIconProps) {
-  const { sizes } = useTheme()
+  const { iconsSize } = useTheme<ThemeType>()
 
-  const boxSize = boxDimension || sizes.icons[iconSize] + 6
+  const boxSize = boxDimension || iconsSize[iconSize] + 6
 
   return (
     <TouchableBox
@@ -63,9 +63,9 @@ export type IconSVGProps = {
 }
 
 export function IconSVG({ iconName, iconSize = 'medium' }: IconSVGProps) {
-  const { sizes } = useTheme()
+  const { weatherIconsSize } = useTheme<ThemeType>()
 
-  const size = sizes.weatherIcons[iconSize]
+  const size = weatherIconsSize[iconSize]
 
   const IconSVGComponent = iconSVGMap[iconName]
 
