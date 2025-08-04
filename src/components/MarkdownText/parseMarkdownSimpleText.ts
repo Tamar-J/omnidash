@@ -12,15 +12,15 @@
  * @returns An array of objects containing `text` and `isBold` properties
  *
  * @example
- * parseMarkdown('## Title\n**Bold text**\n* Normal text');
+ * parseMarkdownSimpleText('## Title\n**Bold text**\n* Normal text');
  * // [
  * //   { text: "Title\n", isBold: true },
  * //   { text: "Bold text", isBold: true },
- * //   { text: "•", isBold: false },
+ * //   { text: "• ", isBold: false },
  * //   { text: "Normal text", isBold: false }
  * // ]
  */
-export const parseMarkdown = (markdownText: string) => {
+export const parseMarkdownSimpleText = (markdownText: string) => {
   const regex = /(\*\*.*?\*\*|\* |#+ .*(?:\n|$))/g
   const parts = markdownText.split(regex).filter(Boolean)
 
@@ -36,7 +36,7 @@ export const parseMarkdown = (markdownText: string) => {
       return { text: textWithoutHash, isBold: true }
     }
 
-    if (isBulletPoint) return { text: '•', isBold: false }
+    if (isBulletPoint) return { text: '• ', isBold: false }
 
     return { text: part, isBold: false }
   })

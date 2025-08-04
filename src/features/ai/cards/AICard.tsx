@@ -1,4 +1,4 @@
-import { Box, BoxRow, TouchableIcon, TextTitle, MarkdownText } from '@/components'
+import { Box, BoxRow, TouchableIcon, TextTitle, MarkdownSimpleText } from '@/components'
 
 type IACardProps = {
   title: string
@@ -35,7 +35,7 @@ export function AICard({ title, textContent, rightIcon, handlePressLeftIcon }: I
         </BoxRow>
       </BoxRow>
 
-      <MarkdownText textToNormalize={textContent} />
+      <MarkdownSimpleText textToNormalize={textContent} />
     </Box>
   )
 }

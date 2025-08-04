@@ -6,4 +6,4 @@ export { Icon, TouchableIcon, IconProps, IconMapKeyType, IconSVG, IconSVGProps, 
 export { SectionContainer, SectionHeader } from './Section'
 export { Division, DivisionLine } from './Division/divisionStyles'
 export { ModalToggleResources, ModalContainer } from './Modal/'
-export { MarkdownText } from './MarkdownText/MarkdownText'
+export { MarkdownSimpleText } from './MarkdownText/MarkdownSimpleText'
