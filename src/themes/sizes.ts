@@ -23,6 +23,7 @@ export const sizes = {
 export const defaultSizes = {
   fonts: {
     displaySmall: sizes.s32,
+    titleLarge: sizes.s18,
     titleMedium: sizes.s16,
     titleSmall: sizes.s14,
     bodyLarge: sizes.s16,
@@ -38,6 +39,7 @@ export const defaultSizes = {
   },
   icons: {
     small: sizes.s18,
+    medium: sizes.s24,
     large: sizes.s30,
   },
   weatherIcons: {

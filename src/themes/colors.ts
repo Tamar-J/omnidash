@@ -49,7 +49,13 @@ export const defaultColors = {
     primary: palette.gray[100],
     secondary: palette.black50,
   },
-}
+  gradient: {
+    day: palette.gradient.day,
+    night: palette.gradient.night,
+    translucentDark: [palette.transparent, palette.gray[700]],
+  },
+} as const
+
 type DefaultColorsType = typeof defaultColors
 export type BackgroundColorsKeyType = keyof DefaultColorsType['backgrounds']
 export type BorderColorsKeyType = keyof DefaultColorsType['borders']

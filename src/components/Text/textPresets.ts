@@ -18,6 +18,13 @@ export const textPresets = {
     },
   },
   title: {
+    LargeBold: {
+      fontFamily: theme.fontFamilies.bold,
+      fontSize: theme.fontSizes.titleLarge,
+      textAlign: 'center',
+      lineHeight: 26,
+      letterSpacing: 0.15,
+    },
     mediumBold: {
       fontFamily: theme.fontFamilies.bold,
       fontSize: theme.fontSizes.titleMedium,
@@ -41,6 +48,13 @@ export const textPresets = {
       lineHeight: 20,
       letterSpacing: 0.5,
     },
+    mediumRegularItalic: {
+      fontFamily: theme.fontFamilies.regularItalic,
+      fontSize: theme.fontSizes.bodyMedium,
+      textAlign: 'auto',
+      lineHeight: 20,
+      letterSpacing: 0.25,
+    },
     mediumRegular: {
       fontFamily: theme.fontFamilies.regular,
       fontSize: theme.fontSizes.bodyMedium,
@@ -54,6 +68,13 @@ export const textPresets = {
       lineHeight: 16,
       letterSpacing: 0.4,
     },
+    mediumMediumItalic: {
+      fontFamily: theme.fontFamilies.mediumItalic,
+      fontSize: theme.fontSizes.bodyMedium,
+      textAlign: 'auto',
+      lineHeight: 20,
+      letterSpacing: 0.25,
+    },
     mediumMedium: {
       fontFamily: theme.fontFamilies.medium,
       fontSize: theme.fontSizes.bodyMedium,
@@ -63,6 +84,13 @@ export const textPresets = {
     },
   },
   label: {
+    smallMediumItalic: {
+      fontFamily: theme.fontFamilies.mediumItalic,
+      fontSize: theme.fontSizes.labelSmall,
+      textAlign: 'auto',
+      lineHeight: 16,
+      letterSpacing: 0,
+    },
     smallMedium: {
       fontFamily: theme.fontFamilies.medium,
       fontSize: theme.fontSizes.labelSmall,

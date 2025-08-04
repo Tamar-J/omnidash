@@ -15,7 +15,9 @@ export const theme = createTheme({
   fontFamilies: {
     light: 'Roboto_Light',
     regular: 'Roboto_Regular',
+    regularItalic: 'Roboto_Regular_Italic',
     medium: 'Roboto_Medium',
+    mediumItalic: 'Roboto_Medium_Italic',
     bold: 'Roboto_Bold',
   },
   zIndices: {
