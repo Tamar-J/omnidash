@@ -1,22 +1,22 @@
 import { useRef } from 'react'
-
 import { onlineManager, useQuery, useQueryClient } from '@tanstack/react-query'
-
-import { AI_WEATHER_INSIGHT_KEY } from '@/services/queryKeys'
 
 import { dayjs } from '@/libs/dayjs'
 
-import { CachedAiChatDataProps, getAiWeatherResponse } from '@/services/aiWeatherService'
+import { AI_WEATHER_INSIGHT_KEY } from '../services'
+import { CachedAiChatDataProps } from '../types/CachedAiChatDataProps'
+import { getAiWeatherResponse } from '@/features/ai/services'
 import { CachedWeatherDataProps } from '@/services/weather/weatherServices'
 
-export const useAIWeather = (weatherData?: CachedWeatherDataProps | null) => {
+export const useAiWeather = (weatherData?: CachedWeatherDataProps | null) => {
   const abortControllerRef = useRef<AbortController | null>(null)
 
   const aiData = useQueryClient().getQueryData<CachedAiChatDataProps>([AI_WEATHER_INSIGHT_KEY])
 
-  const shouldFetchAI = () => {
+  const shouldFetchAi = () => {
     if (!weatherData) return false
     if (!aiData) return true
+
     const aiUpdatedAt = dayjs(aiData.lastFetchedAt)
     const weatherUpdatedAt = dayjs(weatherData.lastFetchedAt)
 
@@ -27,7 +27,7 @@ export const useAIWeather = (weatherData?: CachedWeatherDataProps | null) => {
     data,
     isLoading,
     isError,
-    refetch: fetchAIData,
+    refetch: fetchWeatherInsightData,
     isFetching,
   } = useQuery({
     queryKey: [AI_WEATHER_INSIGHT_KEY],
@@ -51,9 +51,9 @@ export const useAIWeather = (weatherData?: CachedWeatherDataProps | null) => {
     staleTime: Infinity,
     retry: 3,
     retryDelay: 1000 * 30, // 30 seconds
-    enabled: shouldFetchAI(),
+    enabled: shouldFetchAi(),
     subscribed: onlineManager.isOnline(),
   })
 
-  return { data, fetchAIData, isLoading, isError, isFetching }
+  return { data, fetchWeatherInsightData, isLoading, isError, isFetching }
 }

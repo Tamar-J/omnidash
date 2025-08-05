@@ -1,26 +1,27 @@
-import { Box, BoxRow, TouchableIcon, TextTitle, MarkdownSimpleText } from '@/components'
+import { Box, BoxRow, TouchableIcon, TextTitle } from '@/components'
 
-type IACardProps = {
+type AiCardProps = {
+  children?: React.ReactNode
   title: string
   textContent: string
   handlePressLeftIcon: () => void
   rightIcon?: React.ReactNode
 }
 
-export function AICard({ title, textContent, rightIcon, handlePressLeftIcon }: IACardProps) {
+export function AiCard({ title, rightIcon, handlePressLeftIcon, children }: AiCardProps) {
   return (
     <Box
       alignItems="center"
       justifyContent="space-between"
       paddingHorizontal="s16"
-      paddingBottom="s16"
+      paddingVertical={children ? 's16' : 's12'}
       borderRadius="medium"
       borderWidth={0.5}
       backgroundColor="sectionListBackground"
       gap="s8"
       maxWidth={450}
     >
-      <BoxRow alignItems="center" justifyContent="space-between" paddingTop="s12">
+      <BoxRow alignItems="center" justifyContent="space-between">
         <BoxRow gap="s16" flex={1} flexWrap="wrap" justifyContent="flex-start">
           <TouchableIcon iconName="sparkle" iconWeight="bold" handlePressIcon={handlePressLeftIcon} />
         </BoxRow>
@@ -34,8 +35,7 @@ export function AICard({ title, textContent, rightIcon, handlePressLeftIcon }: I
           {rightIcon}
         </BoxRow>
       </BoxRow>
-
-      <MarkdownSimpleText textToNormalize={textContent} />
+      {children}
     </Box>
   )
 }

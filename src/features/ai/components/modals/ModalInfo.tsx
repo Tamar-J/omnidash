@@ -6,6 +6,7 @@ type Props = {
   description: string
   closeModal: () => void
 }
+
 export function ModalInfo({ isInfoVisible, closeModal, title, description }: Props) {
   return (
     <ModalContainer isModalVisible={isInfoVisible} onRequestClose={closeModal}>

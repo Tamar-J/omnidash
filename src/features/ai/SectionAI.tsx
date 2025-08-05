@@ -1,11 +1,10 @@
-import { ModalToggleResources, SectionContainer, SectionHeader, TouchableIcon } from '@/components'
+import { AiCard, ModalInfo } from './components'
 
-import { AICard } from './cards/AICard'
+import { MarkdownSimpleText, ModalToggleResources, SectionContainer, SectionHeader, TouchableIcon } from '@/components'
 
-import { ModalInfo } from './modals/ModalInfo'
-import { ActiveModal, useSectionAI } from './useSectionAI'
+import { ActiveModal, useSectionAi } from './useSectionAi'
 
-export function SectionAI() {
+export function SectionAi() {
   const {
     aiWeatherInsight,
     closeModal,
@@ -17,7 +16,7 @@ export function SectionAI() {
     isLoading,
     isFetching,
     isError,
-  } = useSectionAI()
+  } = useSectionAi()
 
   return (
     <SectionContainer minWidth={'40%'}>
@@ -38,11 +37,9 @@ export function SectionAI() {
         }
       />
       {isAiWeatherInsightCardVisible && !isLoading && aiWeatherInsight && (
-        <AICard
-          title="Insights de Clima"
-          textContent={aiWeatherInsight}
-          handlePressLeftIcon={() => openModal(ActiveModal.INFO)}
-        />
+        <AiCard title="Insights de Clima" textContent={aiWeatherInsight} handlePressLeftIcon={() => openModal(ActiveModal.INFO)}>
+          {aiWeatherInsight && <MarkdownSimpleText textToNormalize={aiWeatherInsight} />}
+        </AiCard>
       )}
       {isModalInfoVisible && (
         <ModalInfo
