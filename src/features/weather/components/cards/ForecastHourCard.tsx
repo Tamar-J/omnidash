@@ -1,6 +1,8 @@
 import { Icon } from '@/components'
 
-import { ForecastItemBase, WeatherInfoRow, ForecastItemBaseProps, ForecastItemsList } from '../components'
+import { ForecastItemBase, ForecastItemBaseProps } from '../ForecastItemBase'
+import { ForecastItemsList } from '../ForecastItemsList'
+import { WeatherInfoRow } from '../WeatherInfoRow'
 
 type ForecastHourCardProps = {
   data: ForecastHourItemProps[]
@@ -18,13 +20,13 @@ export function ForecastHourCard({ data }: ForecastHourCardProps) {
   )
 }
 
-export type ForecastHourItemProps = Omit<ForecastItemBaseProps, 'children' | 'title'> & {
+type ForecastHourItemProps = Omit<ForecastItemBaseProps, 'children' | 'title'> & {
   time: string // 10:00
   temp: number
   rainChance: number
 }
 
-export const ForecastHourItem = ({ time, temp, rainChance, iconName, iconSize }: ForecastHourItemProps) => {
+const ForecastHourItem = ({ time, temp, rainChance, iconName, iconSize }: ForecastHourItemProps) => {
   return (
     <ForecastItemBase title={time} iconName={iconName} iconSize={iconSize}>
       <WeatherInfoRow weatherValue={temp} weatherUnit={'º'} />

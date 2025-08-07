@@ -1,6 +1,8 @@
 import { Icon } from '@/components'
 
-import { ForecastItemBase, WeatherInfoRow, ForecastItemBaseProps, ForecastItemsList } from '../components'
+import { ForecastItemBase, ForecastItemBaseProps } from '../ForecastItemBase'
+import { ForecastItemsList } from '../ForecastItemsList'
+import { WeatherInfoRow } from '../WeatherInfoRow'
 
 type ForecastDayCardProps = {
   data: ForecastDayItemProps[]
@@ -18,13 +20,13 @@ export function ForecastDayCard({ data }: ForecastDayCardProps) {
   )
 }
 
-export type ForecastDayItemProps = Omit<ForecastItemBaseProps, 'children' | 'title'> & {
+type ForecastDayItemProps = Omit<ForecastItemBaseProps, 'children' | 'title'> & {
   weekDay: string
   tempMax: number
   tempMin: number
 }
 
-export const ForecastDayItem = ({ weekDay, tempMax, tempMin, iconName, iconSize }: ForecastDayItemProps) => {
+const ForecastDayItem = ({ weekDay, tempMax, tempMin, iconName, iconSize }: ForecastDayItemProps) => {
   return (
     <ForecastItemBase title={weekDay} iconName={iconName} iconSize={iconSize}>
       <WeatherInfoRow

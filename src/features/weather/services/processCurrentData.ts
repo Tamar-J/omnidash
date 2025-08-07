@@ -2,13 +2,14 @@ import { WeatherAPIResponseProps } from '@/api/weatherApi'
 
 import { dayjs } from '@/libs/dayjs'
 
-import { CachedWeatherDataProps } from './weatherServices'
-
 import { getWeatherAlert } from './getWeatherAlert'
 import { getWeatherIcon } from './weatherUtils'
 
-import { capitalizeFirstLetter, getCurrentDate, getCurrentWeekDayName } from '@/utils'
 import { IconSVGMapKeyType } from '@/components'
+
+import { CachedWeatherDataProps } from '../types/CachedWeatherDataProps'
+
+import { capitalizeFirstLetter, getCurrentDate, getCurrentWeekDayName } from '@/utils'
 
 export type CurrentDataProps = {
   date: string

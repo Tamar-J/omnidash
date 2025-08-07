@@ -1,11 +1,13 @@
 import { onlineManager, useQuery } from '@tanstack/react-query'
 
-import { WEATHER_DATA_KEY } from '@/services/queryKeys'
-
 import { dayjs } from '@/libs/dayjs'
 
 import { UserLocationDataProps } from '@/services/geocodingServices'
-import { CachedWeatherDataProps, weatherService } from '@/services/weather/weatherServices'
+
+import { CachedWeatherDataProps } from '../types/CachedWeatherDataProps'
+import { weatherService } from '../services/weatherServices'
+
+const WEATHER_DATA_KEY = 'weather-data'
 
 export const useWeather = (userLocationData?: UserLocationDataProps) => {
   const isDataExpired = (cachedWeatherData?: CachedWeatherDataProps) => {

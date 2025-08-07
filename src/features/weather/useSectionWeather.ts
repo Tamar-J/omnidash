@@ -4,7 +4,7 @@ import { useMMKVBoolean } from 'react-native-mmkv'
 import { CURRENT_WEATHER_CARD_KEY, DAILY_WEATHER_CARD_KEY, HOURLY_WEATHER_CARD_KEY } from '@/libs/storage/storageKeys'
 
 import { useUserLocation } from '@/hooks/useUserLocation'
-import { useWeather } from '@/hooks/useWeather'
+import { useWeather } from '@/features/weather/hooks/useWeather'
 
 import { UserLocationDataProps } from '@/services/geocodingServices'
 

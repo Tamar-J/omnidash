@@ -4,7 +4,7 @@ import { useMMKVBoolean } from 'react-native-mmkv'
 import { dayjs } from '@/libs/dayjs'
 import { AI_WEATHER_INSIGHT_CARD_KEY } from '@/libs/storage/storageKeys'
 
-import { useWeather } from '@/hooks/useWeather'
+import { useWeather } from '@/features/weather/hooks/useWeather'
 import { useAiWeather } from '@/features/ai/hooks/useAiWeather'
 
 export enum ActiveModal {

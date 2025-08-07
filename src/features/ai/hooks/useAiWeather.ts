@@ -3,10 +3,9 @@ import { onlineManager, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { dayjs } from '@/libs/dayjs'
 
-import { AI_WEATHER_INSIGHT_KEY } from '../services'
+import { AI_WEATHER_INSIGHT_KEY, getAiWeatherResponse } from '../services'
 import { CachedAiChatDataProps } from '../types/CachedAiChatDataProps'
-import { getAiWeatherResponse } from '@/features/ai/services'
-import { CachedWeatherDataProps } from '@/services/weather/weatherServices'
+import { CachedWeatherDataProps } from '@/features/weather/types/CachedWeatherDataProps'
 
 export const useAiWeather = (weatherData?: CachedWeatherDataProps | null) => {
   const abortControllerRef = useRef<AbortController | null>(null)

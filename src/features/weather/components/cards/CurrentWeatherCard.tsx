@@ -16,7 +16,7 @@ import {
   IconSVGMapKeyType,
 } from '@/components'
 
-import { WeatherInfoRow } from '../components/WeatherInfoRow'
+import { WeatherInfoRow } from '../WeatherInfoRow'
 
 type CurrentWeatherCardProps = {
   weekDay: string //Sexta-feira

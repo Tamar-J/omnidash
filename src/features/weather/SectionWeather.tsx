@@ -1,10 +1,6 @@
+import { CurrentWeatherCard, ForecastDayCard, ForecastHourCard, ModalLocation } from './components'
+
 import { Box, ModalToggleResources, SectionContainer, TouchableIcon, SectionHeader } from '@/components'
-
-import { CurrentWeatherCard } from './cards/CurrentWeatherCard'
-import { ForecastDayCard } from './cards/ForecastDayCard'
-import { ForecastHourCard } from './cards/ForecastHourCard'
-
-import { ModalLocation } from './modals/ModalLocation'
 
 import { ActiveModal, useSectionWeather } from './useSectionWeather'
 

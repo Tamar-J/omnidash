@@ -1,22 +1,16 @@
 import { fetchWeather } from '@/api/weatherApi'
 
-import { UserLocationDataProps } from '../geocodingServices'
+import { UserLocationDataProps } from '@/services/geocodingServices'
 
 import { dayjs } from '@/libs/dayjs'
 
-import { CurrentDataProps, processCurrentCachedData, processCurrentData } from './processCurrentData'
-import { Minutely15Props, processMinutely15Data } from './processMinutely15Data'
-import { DailyProps, processDailyData } from './processDailyData'
-import { HourlyProps, processHourlyData } from './processHourlyData'
+import { processCurrentCachedData, processCurrentData } from './processCurrentData'
+import { processMinutely15Data } from './processMinutely15Data'
+import { processDailyData } from './processDailyData'
+import { processHourlyData } from './processHourlyData'
 import { formatCityName } from './formatCityName'
 
-export type CachedWeatherDataProps = {
-  minutely15Data: Minutely15Props[]
-  hourlyData: HourlyProps[]
-  dailyData: DailyProps[]
-  currentData: CurrentDataProps
-  lastFetchedAt: string
-}
+import { CachedWeatherDataProps } from '../types/CachedWeatherDataProps'
 
 export const weatherService = async (userLocationData: UserLocationDataProps, cachedWeatherData?: CachedWeatherDataProps) => {
   try {

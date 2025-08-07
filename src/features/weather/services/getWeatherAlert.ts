@@ -1,6 +1,6 @@
 import { dayjs } from '@/libs/dayjs'
 
-import { CachedWeatherDataProps } from './weatherServices'
+import { CachedWeatherDataProps } from '../types/CachedWeatherDataProps'
 
 import { HourlyProps } from './processHourlyData'
 
@@ -38,7 +38,7 @@ type ConditionsProps = {
 
 const conditions: ConditionsProps[] = [
   {
-    check: (weather) => weather.precipitation > 0,
+    check: (weather) => (weather.rainChance >= 50 && weather.precipitation > 0) || weather.precipitation > 0.1,
     message: (weather) =>
       `${weather.rainChance}% de chance de ${getRainDescription(weather.precipitation)} por volta de ${weather.time}`,
   },
