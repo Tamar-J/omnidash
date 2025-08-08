@@ -3,7 +3,7 @@ import { useMMKVBoolean } from 'react-native-mmkv'
 
 import { FeedArticleProps } from './types'
 
-import { FEED_LIST_CARD_KEY } from '@/libs/storage/storageKeys'
+import { FEED_CAROUSEL_CARD_KEY, FEED_LIST_CARD_KEY } from '@/libs/storage/storageKeys'
 
 export enum ActiveModal {
   NONE = 0,
@@ -13,10 +13,12 @@ export enum ActiveModal {
 
 export function useSectionFeed() {
   const [isFeedListCardVisible = true, setIsFeedListCardVisible] = useMMKVBoolean(FEED_LIST_CARD_KEY)
+  const [isFeedCarouselCardVisible = true, setIsFeedCarouselCardVisible] = useMMKVBoolean(FEED_CAROUSEL_CARD_KEY)
 
   const [activeModal, setActiveModal] = useState(ActiveModal.NONE)
 
   const feedListData = [] as FeedArticleProps[]
+  const feedCarouselData = [] as FeedArticleProps[]
 
   const isToggleResourcesModalVisible = activeModal === ActiveModal.TOGGLE_RESOURCES
 
@@ -26,18 +28,26 @@ export function useSectionFeed() {
   const toggleFeedListCard = () => {
     setIsFeedListCardVisible(!isFeedListCardVisible)
   }
+  const toggleFeedCarouselCard = () => {
+    setIsFeedCarouselCardVisible(!isFeedCarouselCardVisible)
+  }
 
   const handleOpenArticle = (data: FeedArticleProps) => {
     __DEV__ && console.log(data.link)
   }
 
-  let resourcesData = [{ title: 'Notícias em Lista', isActive: isFeedListCardVisible, toggleSwitch: toggleFeedListCard }]
+  const resourcesData = [
+    { title: 'Feed em Carrossel', isActive: isFeedCarouselCardVisible, toggleSwitch: toggleFeedCarouselCard },
+    { title: 'Feed em Lista', isActive: isFeedListCardVisible, toggleSwitch: toggleFeedListCard },
+  ]
 
   return {
     feedListData,
+    feedCarouselData,
     handleOpenArticle,
     isToggleResourcesModalVisible,
     isFeedListCardVisible,
+    isFeedCarouselCardVisible,
     openModal,
     closeModal,
     resourcesData,
