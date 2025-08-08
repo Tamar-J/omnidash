@@ -1,3 +1,4 @@
 export { convertToPx } from './convertToPx'
 export { capitalizeFirstLetter } from './capitalizeFirstLetter'
-export { getCurrentDate, getCurrentWeekDayName } from './dateUtils'
+export { getCurrentDate, getCurrentWeekDayName, getTimeSinceDateShort, formatToLocaleHumanDate } from './dateUtils'
+export { openLink, shareLink } from './deviceActions'

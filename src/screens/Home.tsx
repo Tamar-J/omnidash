@@ -1,7 +1,7 @@
 import { ScrollView } from 'react-native'
 
 import { BoxRow, BoxSafe } from '@/components'
-import { SectionAi, SectionWeather } from '@/features'
+import { SectionAi, SectionWeather, SectionFeed } from '@/features'
 
 export function Home() {
   return (
@@ -10,6 +10,7 @@ export function Home() {
         <BoxRow gap="s10" flexWrap="wrap" alignItems="flex-start">
           <SectionAi />
           <SectionWeather />
+          <SectionFeed />
         </BoxRow>
       </ScrollView>
     </BoxSafe>

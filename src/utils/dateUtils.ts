@@ -34,3 +34,57 @@ export const getCurrentWeekDayName = (format?: 'short' | 'full' | 'withoutSuffix
 
   return capitalizeFirstLetter(weekDay)
 }
+
+/**
+ * Calculates the elapsed time since the given date until now in UTC,
+ * returning a short formatted string with the largest significant time unit.
+ * @param dateString - Publication date as an ISO 8601 string (recognized by dayjs).
+ * @returns Elapsed time formatted with abbreviated units.
+ * @example
+ * ```ts
+ * getTimeSinceDateShort('2025-06-26T14:00:00Z') // "1d"
+ * getTimeSinceDateShort('2020-01-01T00:00:00Z') // "5a"
+ * getTimeSinceDateShort('2025-06-27T14:00:00Z') // "agora"
+ * ```
+ */
+export const getTimeSinceDateShort = (dateString: string): string => {
+  const currentTimeUtc = dayjs().utc(true)
+  const publishedTimeUtc = dayjs(dateString).utc(true)
+
+  const timeUnitMappings: [dayjs.ManipulateType, string][] = [
+    ['year', 'a'],
+    ['month', 'm'],
+    ['day', 'd'],
+    ['hour', 'h'],
+    ['minute', 'min'],
+  ]
+
+  for (const [timeUnit, unitLabel] of timeUnitMappings) {
+    const timeDifference = currentTimeUtc.diff(publishedTimeUtc, timeUnit)
+    if (timeDifference > 0) {
+      return `${timeDifference}${unitLabel}`
+    }
+  }
+
+  return 'agora'
+}
+
+/**
+ * Converts a raw date string into a localized, human-readable format.
+ * @param rawDate - The raw date string to be parsed (ISO format recommended).
+ * @param locale - Optional locale string (e.g., 'pt-BR', 'en-US'). Defaults to 'pt-BR'.
+ * @returns A localized full date string (e.g., 'domingo, 28 de junho de 2025 18:00') or the original `rawDate` if the date is invalid.
+ * @example
+ * formatToLocaleHumanDate('2025-06-28T18:00:00Z') // 'sábado, 28 de junho de 2025 às 15:00'
+ * formatToLocaleHumanDate('Sat, 28 Jun 2025 18:00:00 +0000', 'en') // 'Saturday, June 28, 2025 3:00 PM'
+ * formatToLocaleHumanDate('invalid-date') // 'invalid-date'
+ */
+export const formatToLocaleHumanDate = (rawDate: string, locale: string = 'pt-BR') => {
+  const date = dayjs(rawDate).utc(true).locale(locale)
+
+  if (!date.isValid()) {
+    return rawDate
+  }
+
+  return date.format('LLLL')
+}
