@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler'
 import { useEffect } from 'react'
 import { StatusBar } from 'expo-status-bar'
 
@@ -9,7 +10,7 @@ import { useLoadFonts } from '@/hooks/useLoadFonts'
 
 import { PersistReactQueryClientProvider } from '@/libs/reactQuery/PersistReactQueryClientProvider'
 
-import { Home } from '@/screens/Home'
+import { Routes } from '@/routes'
 import { LoadingScreen } from '@/components'
 
 export default function App() {
@@ -24,7 +25,7 @@ export default function App() {
       <ThemeProvider theme={theme}>
         <StatusBar style="light" translucent />
         {areFontsLoaded ?
-          <Home />
+          <Routes />
         : <LoadingScreen />}
       </ThemeProvider>
     </PersistReactQueryClientProvider>

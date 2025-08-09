@@ -7,6 +7,7 @@ import { FeedCarouselCard, FeedListCard } from './components'
 import { Box, ModalToggleResources, SectionContainer, SectionHeader, TouchableBox, TouchableIcon } from '@/components'
 
 import { getTimeSinceDateShort } from '@/utils'
+import { useNavigation } from '@react-navigation/native'
 
 export function SectionFeed() {
   const {
@@ -21,6 +22,8 @@ export function SectionFeed() {
     isFeedCarouselCardVisible,
   } = useSectionFeed()
 
+  const { navigate } = useNavigation()
+
   const hasFeedData = feedCarouselData.length > 0 || feedListData.length > 0
 
   return (
@@ -33,7 +36,7 @@ export function SectionFeed() {
             <TouchableIcon
               iconName="bookBookmark"
               iconColor={hasFeedData ? 'primary' : 'highlightPrimary'}
-              handlePressIcon={() => {}}
+              handlePressIcon={() => navigate('feed')}
             />
             <TouchableIcon
               iconName="dotsThreeOutlineVertical"
