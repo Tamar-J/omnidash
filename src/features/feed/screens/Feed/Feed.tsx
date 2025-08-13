@@ -7,9 +7,11 @@ import { Box, BoxRow, BoxSafe, TextTitle, TouchableBox, TouchableIcon } from '@/
 import { FeedListCard, FeedCarouselCard } from '../../components'
 
 import { getTimeSinceDateShort } from '@/utils'
+import { ModalManageFeedSources } from '../../components/modals/ModalManageFeedSources/ModalManageFeedSources'
 
 export function Feed() {
-  const { feedListData, feedCarouselData, goBack, showArticle } = useFeedScreen()
+  const { feedListData, feedCarouselData, goBack, showArticle, isModalManageFeedSourcesVisible, openModal, closeModal } =
+    useFeedScreen()
 
   const hasFeedData = feedCarouselData.length > 0 || feedListData.length > 0
 
@@ -26,7 +28,7 @@ export function Feed() {
           <BoxRow gap="s10" alignSelf="flex-end">
             <TouchableIcon
               iconName="plus"
-              handlePressIcon={() => {}}
+              handlePressIcon={openModal}
               iconSize="medium"
               boxDimension={36}
               iconColor={hasFeedData ? 'primary' : 'highlightPrimary'}
@@ -88,6 +90,10 @@ export function Feed() {
           />
         )}
       </Box>
+
+      {isModalManageFeedSourcesVisible && (
+        <ModalManageFeedSources isModalVisible={isModalManageFeedSourcesVisible} closeModal={closeModal} />
+      )}
     </BoxSafe>
   )
 }

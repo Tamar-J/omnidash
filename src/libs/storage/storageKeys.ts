@@ -9,3 +9,4 @@ export const AI_WEATHER_INSIGHT_CARD_KEY = 'ai.weather-insight-card'
 //FEED
 export const FEED_LIST_CARD_KEY = 'feed-list-card'
 export const FEED_CAROUSEL_CARD_KEY = 'feed-carousel-card'
+export const FEED_SOURCES_KEY = 'feed.sources'
