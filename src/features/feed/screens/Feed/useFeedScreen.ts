@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 
+import { useAllFeedsRss } from '../../hooks/useAllFeedsRss'
 import { FeedArticleProps } from '../../types'
 
 export function useFeedScreen() {
-  const feedListData = [] as FeedArticleProps[]
-  const feedCarouselData = [] as FeedArticleProps[]
+  const { data: feedListData = [] } = useAllFeedsRss({ articleType: 'short-articles' })
+  const { data: feedCarouselData = [] } = useAllFeedsRss({ articleType: 'full-articles' })
 
   const { goBack } = useNavigation()
 

@@ -1,9 +1,11 @@
 import { useCallback, useState } from 'react'
 import { useMMKVBoolean } from 'react-native-mmkv'
 
-import { FeedArticleProps } from './types'
+import { useAllFeedsRss } from './hooks/useAllFeedsRss'
 
 import { FEED_CAROUSEL_CARD_KEY, FEED_LIST_CARD_KEY } from '@/libs/storage/storageKeys'
+
+import { FeedArticleProps } from './types'
 
 export enum ActiveModal {
   NONE = 0,
@@ -17,8 +19,8 @@ export function useSectionFeed() {
 
   const [activeModal, setActiveModal] = useState(ActiveModal.NONE)
 
-  const feedListData = [] as FeedArticleProps[]
-  const feedCarouselData = [] as FeedArticleProps[]
+  const { data: feedListData = [] } = useAllFeedsRss({ articleType: 'short-articles', numberOfArticles: 3 })
+  const { data: feedCarouselData = [] } = useAllFeedsRss({ articleType: 'full-articles', numberOfArticles: 5 })
 
   const isToggleResourcesModalVisible = activeModal === ActiveModal.TOGGLE_RESOURCES
 
