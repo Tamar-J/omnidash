@@ -2,18 +2,27 @@ import { FlatList } from 'react-native'
 
 import { useFeedScreen } from './useFeedScreen'
 
-import { Box, BoxRow, BoxSafe, TextTitle, TouchableBox, TouchableIcon } from '@/components'
+import { FeedListCard, FeedCarouselCard, ModalManageFeedSources } from '../../components'
 
-import { FeedListCard, FeedCarouselCard } from '../../components'
+import { Box, BoxRow, BoxSafe, Icon, TextInput, TextTitle, TouchableBox, TouchableIcon } from '@/components'
 
 import { getTimeSinceDateShort } from '@/utils'
-import { ModalManageFeedSources } from '../../components/modals/ModalManageFeedSources/ModalManageFeedSources'
 
 export function Feed() {
-  const { feedListData, feedCarouselData, goBack, showArticle, isModalManageFeedSourcesVisible, openModal, closeModal } =
-    useFeedScreen()
-
-  const hasFeedData = feedCarouselData.length > 0 || feedListData.length > 0
+  const {
+    filteredFeedListArticles,
+    filteredFeedCarouselArticles,
+    hasFeedData,
+    feedListArticlesRef,
+    feedCarouselArticlesRef,
+    goBack,
+    isModalManageFeedSourcesVisible,
+    showArticle,
+    openModal,
+    closeModal,
+    searchFeedArticle,
+    handleUserSearchFeedArticleInput,
+  } = useFeedScreen()
 
   return (
     <BoxSafe flex={1}>
@@ -36,10 +45,26 @@ export function Feed() {
           </BoxRow>
         </Box>
       </BoxRow>
+      <Box paddingHorizontal="s16" paddingBottom="s16">
+        <BoxRow
+          backgroundColor="textInputBackground"
+          width={'100%'}
+          alignItems="center"
+          gap="s10"
+          borderWidth={0.5}
+          borderRadius="full"
+          paddingHorizontal="s16"
+          paddingVertical="s16"
+        >
+          <Icon iconName="magnifyingGlass" />
+          <TextInput value={searchFeedArticle} onChangeText={handleUserSearchFeedArticleInput} placeholder="título do feed" />
+        </BoxRow>
+      </Box>
       <Box flex={1} height={'100%'}>
         {hasFeedData && (
           <FlatList
-            data={feedListData}
+            ref={feedListArticlesRef}
+            data={filteredFeedListArticles}
             renderItem={({ item }) => (
               <TouchableBox activeOpacity={0.9} onPress={() => showArticle(item)}>
                 <FeedListCard
@@ -59,10 +84,11 @@ export function Feed() {
             showsVerticalScrollIndicator={true}
             contentContainerStyle={{ paddingBottom: 100, gap: 8 }}
             ListHeaderComponent={
-              feedCarouselData && (
+              filteredFeedCarouselArticles && (
                 <Box gap="s10" backgroundColor="sectionListBackground">
                   <FlatList
-                    data={feedCarouselData}
+                    ref={feedCarouselArticlesRef}
+                    data={filteredFeedCarouselArticles}
                     horizontal
                     renderItem={({ item }) => (
                       <TouchableBox activeOpacity={0.9} onPress={() => showArticle(item)}>
