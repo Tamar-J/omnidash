@@ -18,11 +18,13 @@ export function useSectionFeed() {
   const [isFeedCarouselCardVisible = true, setIsFeedCarouselCardVisible] = useMMKVBoolean(FEED_CAROUSEL_CARD_KEY)
 
   const [activeModal, setActiveModal] = useState(ActiveModal.NONE)
+  const [feedArticleData, setFeedArticleData] = useState({} as FeedArticleProps)
 
   const { data: feedListData = [] } = useAllFeedsRss({ articleType: 'short-articles', numberOfArticles: 3 })
   const { data: feedCarouselData = [] } = useAllFeedsRss({ articleType: 'full-articles', numberOfArticles: 5 })
 
   const isToggleResourcesModalVisible = activeModal === ActiveModal.TOGGLE_RESOURCES
+  const isFeedArticleModalVisible = activeModal === ActiveModal.FEED_ARTICLES
 
   const openModal = useCallback((modal: ActiveModal) => setActiveModal(modal), [])
   const closeModal = () => setActiveModal(ActiveModal.NONE)
@@ -36,6 +38,8 @@ export function useSectionFeed() {
 
   const handleOpenArticle = (data: FeedArticleProps) => {
     __DEV__ && console.log(data.link)
+    setFeedArticleData(data)
+    openModal(ActiveModal.FEED_ARTICLES)
   }
 
   const resourcesData = [
@@ -46,12 +50,14 @@ export function useSectionFeed() {
   return {
     feedListData,
     feedCarouselData,
-    handleOpenArticle,
+    resourcesData,
+    feedArticleData,
     isToggleResourcesModalVisible,
+    isFeedArticleModalVisible,
     isFeedListCardVisible,
     isFeedCarouselCardVisible,
+    handleOpenArticle,
     openModal,
     closeModal,
-    resourcesData,
   }
 }

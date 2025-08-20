@@ -17,7 +17,7 @@ export function useFeedScreen() {
   const [searchFeedArticle, setSearchFeeds] = useState('')
   const searchFeedArticleDebounced = useDebounceValue(searchFeedArticle, 300)
 
-  const { goBack } = useNavigation()
+  const { goBack, navigate } = useNavigation()
 
   const hasFeedData = feedCarouselData.length > 0 || feedListData.length > 0
 
@@ -32,6 +32,7 @@ export function useFeedScreen() {
 
   const showArticle = (article: FeedArticleProps) => {
     __DEV__ && console.log('link:', article.link)
+    navigate('feedArticle', article)
   }
 
   const filteredFeedListArticles = useMemo(() => {

@@ -1,4 +1,5 @@
 export { Box, BoxCenter, BoxRow, BoxSafe, TouchableBox, BoxProps, BoxGradient } from './Box/boxStyles'
+export { SafeImage } from './Image/SafeImage'
 export { Loading, LoadingScreen } from './Loading/Loading'
 export { TextDisplay, TextTitle, TextBody, TextLabel } from './Text/textStyles'
 export { TextInput } from './TextInput/textInput'

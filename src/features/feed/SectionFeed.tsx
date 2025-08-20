@@ -2,7 +2,7 @@ import { FlatList } from 'react-native'
 
 import { ActiveModal, useSectionFeed } from './useSectionFeed'
 
-import { FeedCarouselCard, FeedListCard } from './components'
+import { FeedCarouselCard, FeedListCard, ModalFeedScreen } from './components'
 
 import { Box, ModalToggleResources, SectionContainer, SectionHeader, TouchableBox, TouchableIcon } from '@/components'
 
@@ -13,13 +13,15 @@ export function SectionFeed() {
   const {
     feedListData,
     feedCarouselData,
+    resourcesData,
+    feedArticleData,
+    isToggleResourcesModalVisible,
+    isFeedArticleModalVisible,
+    isFeedListCardVisible,
+    isFeedCarouselCardVisible,
     handleOpenArticle,
     openModal,
     closeModal,
-    isToggleResourcesModalVisible,
-    resourcesData,
-    isFeedListCardVisible,
-    isFeedCarouselCardVisible,
   } = useSectionFeed()
 
   const { navigate } = useNavigation()
@@ -106,6 +108,10 @@ export function SectionFeed() {
           closeModal={closeModal}
           resourcesData={resourcesData}
         />
+      )}
+
+      {isFeedArticleModalVisible && feedArticleData.title && (
+        <ModalFeedScreen closeModal={closeModal} data={feedArticleData} isModalVisible={isFeedArticleModalVisible} />
       )}
     </SectionContainer>
   )
