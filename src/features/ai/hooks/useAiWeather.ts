@@ -22,13 +22,7 @@ export const useAiWeather = (weatherData?: CachedWeatherDataProps | null) => {
     return weatherUpdatedAt.isAfter(aiUpdatedAt)
   }
 
-  const {
-    data,
-    isLoading,
-    isError,
-    refetch: fetchWeatherInsightData,
-    isFetching,
-  } = useQuery({
+  const { data, isLoading, isError, refetch, isFetching } = useQuery({
     queryKey: [AI_WEATHER_INSIGHT_KEY],
     queryFn: async () => {
       try {
@@ -40,8 +34,8 @@ export const useAiWeather = (weatherData?: CachedWeatherDataProps | null) => {
 
         const abortController = (abortControllerRef.current = new AbortController())
 
-        const data = await getAiWeatherResponse(JSON.stringify(weatherData), abortController.signal)
-        return data
+        const insightData = await getAiWeatherResponse(JSON.stringify(weatherData), abortController.signal)
+        return insightData
       } catch (error) {
         __DEV__ && console.error('Failed to fetching AI Chat:', error)
         return aiData ? aiData : null
@@ -54,5 +48,5 @@ export const useAiWeather = (weatherData?: CachedWeatherDataProps | null) => {
     subscribed: onlineManager.isOnline(),
   })
 
-  return { data, fetchWeatherInsightData, isLoading, isError, isFetching }
+  return { data, refetch, isLoading, isError, isFetching }
 }

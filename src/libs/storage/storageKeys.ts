@@ -5,6 +5,7 @@ export const HOURLY_WEATHER_CARD_KEY = 'hourly-weather-card'
 
 //AI
 export const AI_WEATHER_INSIGHT_CARD_KEY = 'ai.weather-insight-card'
+export const AI_FEED_INSIGHT_CARD_KEY = 'ai.feed-insight-card'
 
 //FEED
 export const FEED_LIST_CARD_KEY = 'feed-list-card'

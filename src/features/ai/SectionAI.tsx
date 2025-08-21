@@ -1,22 +1,47 @@
-import { AiCard, ModalInfo } from './components'
+import { AiCard, ModalAiList, ModalInfo } from './components'
 
-import { MarkdownSimpleText, ModalToggleResources, SectionContainer, SectionHeader, TouchableIcon } from '@/components'
+import {
+  Box,
+  MarkdownSimpleText,
+  ModalToggleResources,
+  SectionContainer,
+  SectionHeader,
+  TextBody,
+  TouchableIcon,
+} from '@/components'
 
-import { ActiveModal, useSectionAi } from './useSectionAi'
+import { ActiveModal, InsightType, useSectionAi } from './useSectionAi'
+import { ModalFeedScreen } from '../feed/components'
 
 export function SectionAi() {
   const {
     aiWeatherInsight,
+    aiFeedInsight,
+    openModal,
     closeModal,
+    showArticle,
+    closeArticle,
     isAiWeatherInsightCardVisible,
+    isAiFeedInsightCardVisible,
     isModalInfoVisible,
     isModalToggleResourcesVisible,
-    openModal,
-    resourcesData,
+    isModalAiListFromInsightVisible,
+    isFeedInsightOutdated,
     isLoading,
     isFetching,
     isError,
+    resourcesData,
+    feedArticles,
+    feedArticleData,
+    fetchAiFeedInsightData,
+    modalInfoContent,
+    handleOpenModalInfo,
+    handleOpenListOfArticles,
   } = useSectionAi()
+
+  const aiFeedInsightParts = aiFeedInsight.split(/(\[\d+(?:,\s*\d+)*\])/g)
+
+  const feedInsightRefreshColor = isFeedInsightOutdated ? 'highlightPrimary' : 'primary'
 
   return (
     <SectionContainer minWidth={'40%'}>
@@ -36,17 +61,62 @@ export function SectionAi() {
           />
         }
       />
-      {isAiWeatherInsightCardVisible && !isLoading && aiWeatherInsight && (
-        <AiCard title="Insights de Clima" textContent={aiWeatherInsight} handlePressLeftIcon={() => openModal(ActiveModal.INFO)}>
-          {aiWeatherInsight && <MarkdownSimpleText textToNormalize={aiWeatherInsight} />}
-        </AiCard>
-      )}
-      {isModalInfoVisible && (
+      <Box gap="s8">
+        {isAiWeatherInsightCardVisible && (
+          <AiCard
+            title="Insights de Clima"
+            textContent={aiWeatherInsight}
+            handlePressLeftIcon={() => handleOpenModalInfo(InsightType.WEATHER)}
+          >
+            {aiWeatherInsight && <MarkdownSimpleText textToNormalize={aiWeatherInsight} />}
+          </AiCard>
+        )}
+
+        {isAiFeedInsightCardVisible && (
+          <AiCard
+            title="Insights do Feed"
+            textContent={aiFeedInsight}
+            handlePressLeftIcon={() => handleOpenModalInfo(InsightType.FEED)}
+            rightIcon={
+              <TouchableIcon
+                handlePressIcon={fetchAiFeedInsightData}
+                iconColor={feedInsightRefreshColor}
+                iconName="arrowClockwise"
+              />
+            }
+          >
+            {aiFeedInsight && (
+              <TextBody textPreset="mediumRegular">
+                {aiFeedInsightParts.map((insightPart, index) => {
+                  const isReference = (index + 1) % 2 === 0
+
+                  if (isReference) {
+                    const referenceIndexes = insightPart
+                    return (
+                      <TextBody
+                        key={`article-ai-reference-index-${index}`}
+                        textPreset="mediumRegular"
+                        onPress={() => handleOpenListOfArticles(referenceIndexes)}
+                        color="highlightSecondary"
+                        textDecorationLine="underline"
+                      >
+                        {referenceIndexes}
+                      </TextBody>
+                    )
+                  }
+                  return insightPart
+                })}
+              </TextBody>
+            )}
+          </AiCard>
+        )}
+      </Box>
+      {isModalInfoVisible && modalInfoContent && (
         <ModalInfo
           isInfoVisible={isModalInfoVisible}
           closeModal={closeModal}
-          title={'Clima com IA'}
-          description="A IA analisa os dados meteorológicos e fornece insights de forma mais compreensível do que simplesmente números."
+          title={modalInfoContent.title}
+          description={modalInfoContent.description}
         />
       )}
       {isModalToggleResourcesVisible && (
@@ -55,6 +125,14 @@ export function SectionAi() {
           closeModal={closeModal}
           resourcesData={resourcesData}
         />
+      )}
+
+      {isModalAiListFromInsightVisible && (
+        <ModalAiList articlesData={feedArticles} closeModal={closeModal} showArticle={showArticle} />
+      )}
+
+      {feedArticleData?.title && (
+        <ModalFeedScreen closeModal={closeArticle} data={feedArticleData} isModalVisible={!!feedArticleData?.title} />
       )}
     </SectionContainer>
   )
