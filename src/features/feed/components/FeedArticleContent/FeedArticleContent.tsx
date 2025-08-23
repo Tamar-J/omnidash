@@ -3,7 +3,7 @@ import { Image } from 'expo-image'
 
 import { TagList } from '../TagList'
 
-import { Box, BoxCenter, BoxRow, TextBody, TextLabel, TextTitle, TouchableBox } from '@/components'
+import { Box, BoxCenter, BoxRow, Loading, MarkdownSimpleText, TextBody, TextLabel, TextTitle, TouchableBox } from '@/components'
 
 import { FeedArticleProps } from '../../types'
 
@@ -16,7 +16,7 @@ type FeedArticleContentProps = {
 }
 
 export const FeedArticleContent = ({ data }: FeedArticleContentProps) => {
-  const { article, pubDate } = useFeedArticleContent(data)
+  const { article, articleBrief, handleGenerateBrief, isLoadingArticleBrief, pubDate } = useFeedArticleContent(data)
 
   const { creator, title, siteName, categories = [] } = data
   const handleVisitSite = () => openLink(data.link)
@@ -46,7 +46,29 @@ export const FeedArticleContent = ({ data }: FeedArticleContentProps) => {
         )}
       </Box>
       {article}
+      {articleBrief && (
+        <Box backgroundColor="sectionListBackground" borderRadius="small" padding="s8">
+          <MarkdownSimpleText textToNormalize={articleBrief} />
+        </Box>
+      )}
       <BoxCenter flex={1} marginTop="s16">
+        <TouchableBox
+          width={'100%'}
+          borderRadius="medium"
+          borderWidth={0.5}
+          maxWidth={400}
+          padding="s16"
+          onPress={handleGenerateBrief}
+          disabled={isLoadingArticleBrief}
+        >
+          <BoxCenter flex={1} height={20}>
+            {isLoadingArticleBrief ?
+              <Loading size="s18" />
+            : <TextBody textPreset="mediumRegular">Resumo IA</TextBody>}
+          </BoxCenter>
+        </TouchableBox>
+      </BoxCenter>
+      <BoxCenter flex={1}>
         <TouchableBox
           width={'100%'}
           borderRadius="medium"
