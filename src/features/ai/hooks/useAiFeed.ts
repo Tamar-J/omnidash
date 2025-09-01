@@ -11,6 +11,11 @@ export const useAiFeed = (feedArticles?: FeedArticleProps[] | null) => {
 
   const aiFeedInsightData = useQueryClient().getQueryData<CachedAiChatDataProps>([AI_FEED_INSIGHT_KEY])
 
+  const shouldFetchAi = () => {
+    if (!feedArticles || feedArticles.length === 0) return false
+    if (!aiFeedInsightData) return true
+  }
+
   const { data, refetch, isLoading, isError, isFetching } = useQuery({
     queryKey: [AI_FEED_INSIGHT_KEY],
     queryFn: async () => {
@@ -34,7 +39,7 @@ export const useAiFeed = (feedArticles?: FeedArticleProps[] | null) => {
     staleTime: Infinity,
     retry: 3,
     retryDelay: 1000 * 30, // 30 seconds
-    enabled: !aiFeedInsightData,
+    enabled: shouldFetchAi(),
     subscribed: onlineManager.isOnline(),
   })
 
